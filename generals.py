@@ -13,9 +13,9 @@ OBSTACLE = -4
 
 _ENDPOINTS = {
     # 'std': "ws://ws.generals.io/socket.io/?EIO=3&transport=websocket",
-    #'std': "ws://generals.io/socket.io/?EIO=3&transport=websocket",
+    # 'std': "ws://generals.io/socket.io/?EIO=3&transport=websocket",
     'std': "ws://generals.io/socket.io/?EIO=3&transport=websocket",
-    'std1':"wss://generals.io/socket.io/?EIO=3&transport=websocket",
+    'std1': "wss://generals.io/socket.io/?EIO=3&transport=websocket",
     'eu': "wss://euws.generals.io/socket.io/?EIO=3&transport=websocket",
     'bot': "wss://botws.generals.io/socket.io/?EIO=3&transport=websocket",
     'B114': "wss://generals.io/socket.io/?EIO=3&transport=websocket",
@@ -33,7 +33,9 @@ _RESULTS = {
     "game_lost": "lose",
 }
 
-#zzrrccbboott, [Bot] zrcbot
+# zzrrccbboott, [Bot] zrcbot
+
+
 class Generals(object):
     def __init__(self, userid, username, mode="1v1", gameid=None,
                  force_start=True, region="std1"):
@@ -48,14 +50,14 @@ class Generals(object):
         print("Joining game")
         self._send(["star_and_rank", userid])
         self._send(["set_username", userid, username])
-        print ("ok")
+        print("ok")
         if mode == "private":
             if gameid is None:
                 raise ValueError("Gameid must be provided for private games")
             self._send(["join_private", gameid, userid, 'sd09fjd203i0ejwi'])
 
         elif mode == "1v1":
-            self._send(["join_1v1", userid, 'sd09fjd203i0ejwi']) 
+            self._send(["join_1v1", userid, 'sd09fjd203i0ejwi'])
 
         elif mode == "team":
             if gameid is None:
@@ -69,7 +71,7 @@ class Generals(object):
             raise ValueError("Invalid mode")
 
         self._send(["set_force_start", gameid, True])
-        
+
         self._send(["set_force_start", gameid, True])
 
         self._seen_update = False
@@ -106,7 +108,7 @@ class Generals(object):
             # remove numeric prefix
             while msg and msg[0].isdigit():
                 msg = msg[1:]
-            msg = eval(msg,{'true':True, 'false':False, 'null':None})
+            msg = eval(msg, {'true': True, 'false': False, 'null': None})
             if not isinstance(msg, list):
                 continue
 
@@ -147,10 +149,10 @@ class Generals(object):
             'player_index': self._start_data['playerIndex'],
             'turn': data['turn'],
             'army_grid': [[self._map[2 + y*cols + x]
-                          for x in range(cols)]
+                           for x in range(cols)]
                           for y in range(rows)],
             'tile_grid': [[self._map[2 + cols*rows + y*cols + x]
-                          for x in range(cols)]
+                           for x in range(cols)]
                           for y in range(rows)],
             'lands': [s['tiles'] for s in scores],
             'armies': [s['total'] for s in scores],
